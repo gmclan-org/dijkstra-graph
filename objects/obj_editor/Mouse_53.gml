@@ -41,6 +41,8 @@
 		
 		if (near <= 0 or point_distance(mouse_x, mouse_y, near.x, near.y) > 50) {
 			create_named_node(global.my_graph, mouse_x, mouse_y);
+		} else {
+			node1 = near;
 		}
 	}
 	
@@ -58,6 +60,7 @@
 		}
 		
 	}
+
 
 
 
