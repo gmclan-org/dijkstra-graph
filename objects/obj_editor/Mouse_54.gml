@@ -7,7 +7,7 @@
 			if (near.v != undefined) {
 				var _keys = ds_map_keys_to_array(near.v.connections);
 				for(var i = 0; i < array_length(_keys); i++) {
-					disconnect_points(global.my_graph, near.name, _keys[i]);
+					global.my_graph.disconnect(near.name, _keys[i]);
 				}
 			}
 			
@@ -19,7 +19,7 @@
 		if (node1 > -1) {
 			node2 = instance_nearest(mouse_x, mouse_y, obj_node);
 			if (point_distance(mouse_x, mouse_y, node2.x, node2.y) < 50) {
-				disconnect_points(global.my_graph, node1.name, node2.name);
+				global.my_graph.disconnect(node1.name, node2.name);
 			}
 		} else {
 			event_perform(ev_mouse, ev_global_left_press);

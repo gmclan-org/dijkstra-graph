@@ -16,4 +16,10 @@ Zawiera te przykład dodawania/edytowania/wyświetlania grafu, który nie jest w
 
 ---
 
+Created by Piotr Gnys ([@gnysek](https://github.com/gnysek)).
+
+Managed by [GameMaker's Clan - gmclan.org](https://gmclan.org).
+
+You can freely use, modify, and re-distribute code. Of course it would be nice if you mention author in game credits, but this is not required.
+
 *GameMaker was previously known as GameMaker Studio 2.

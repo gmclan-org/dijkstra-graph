@@ -20,10 +20,11 @@ function graph_load() {
 			for(var i = 0; i < _total_nodes; i++) {
 				var _total_connections = ini_read_real("graph", "connections_" + _nodes_names[i], 0);
 				for(var j = 0; j < _total_connections; j++) {
-					connect_points(
-						g,
-						_nodes_names[i],
-						ini_read_string("graph", "connection_" + _nodes_names[i] + "_" + string(j), "") // connection instead connections (mind "s")
+					var _n1 = _nodes_names[i], _n2 = ini_read_string("graph", "connection_" + _nodes_names[i] + "_" + string(j), ""); // connection instead connections (mind "s")
+					g.connect(
+						_n1,
+						_n2, 
+						objects_distance_by_name(_n1, _n2)
 					);
 				}
 			}

@@ -2,8 +2,8 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "helpers",
-    "path": "folders/solution/dijkstra/helpers.yy",
+    "name": "scripts",
+    "path": "folders/solution/example_only/scripts.yy",
   },
   "resourceVersion": "1.0",
   "name": "objects_distance_by_name",

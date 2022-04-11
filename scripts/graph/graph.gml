@@ -21,7 +21,42 @@ function graph() constructor {
 	
 	/// @param {String} vertex
 	static remove = function(_vertex_id) {
+		if (self.vertices[? _vertex_id] != undefined) {
+			self.vertices[? _vertex_id].destroy();
 		ds_map_delete(self.vertices, _vertex_id);
+	}
+	}
+	
+	static connect = function(a, b, _dist) {
+		if (a == b) return false;
+
+		var _va = self.get_vertex(a);
+		var _vb = self.get_vertex(b);
+	
+		if (_va and _vb) {
+			_va.connect(_vb, _dist);
+			_vb.connect(_va, _dist); // back-version of connection
+		} else {
+			throw "one of vertices " + string(a) + "," + string(b) +" was not found";	
+		}
+	
+		return true;
+	}
+	
+	static disconnect = function(a, b) {
+		if (a == b) return false;
+	
+		var _va = self.get_vertex(a);
+		var _vb = self.get_vertex(b);
+	
+		if (_va and _vb) {
+			_va.disconnect(_vb.id);
+			_vb.disconnect(_va.id);
+		} else {
+			throw "one of vertices " + string(a) + "," + string(b) +" was not found";	
+		}
+	
+		return true;
 	}
 	
 	/// @return {Struct.vertex}
