@@ -1,5 +1,3 @@
-#macro INF 1000000
-
 /// @returns {Struct.Graph}
 function graph() constructor {
 	// based on:
@@ -48,8 +46,8 @@ function graph() constructor {
 				dist[? keys[i]] = 0;
 				nodes.enqueue(keys[i], 0); 
 			} else {
-				dist[? keys[i]] = INF;
-				nodes.enqueue(keys[i], INF);
+				dist[? keys[i]] = infinity;
+				nodes.enqueue(keys[i], infinity);
 			}
 			prev[? keys[i]] = undefined;
 		}
@@ -72,7 +70,7 @@ function graph() constructor {
 			}
 		
 		
-			if (smallest == undefined or dist[? smallest] == INF) {
+			if (smallest == undefined or dist[? smallest] == infinity) {
 				continue;
 			}
 			
@@ -107,5 +105,6 @@ function graph() constructor {
 	
 	return self;
 }
+
 
 

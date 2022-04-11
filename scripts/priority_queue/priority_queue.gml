@@ -20,7 +20,8 @@ function priority_queue() constructor {
   
 	static sort = function () {
 		array_sort(self._nodes, function (a, b) {
-			return a.priority - b.priority;
+			// when using "infinity", sign is needed for sorting, otherwise it can return wrong results
+			return sign(a.priority - b.priority);
 		});
 	}
   
