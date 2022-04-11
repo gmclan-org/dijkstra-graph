@@ -12,7 +12,7 @@ function connect_points(gr, a, b){
 		_va.connect(_vb, _dist);
 		_vb.connect(_va, _dist); // back-version of connection
 	} else {
-		throw "one of vertexes " + string(a) + "," + string(b) +" was not found";	
+		throw "one of vertices " + string(a) + "," + string(b) +" was not found";	
 	}
 	
 	return true;
