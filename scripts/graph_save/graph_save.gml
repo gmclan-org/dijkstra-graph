@@ -42,7 +42,6 @@ function graph_save(gr) {
 	}
 	ds_map_destroy(_vertices_map);
 	
-	//show_debug_message(_txt);
 	var file = file_text_open_write("graph.ini");
 	file_text_write_string(file, _txt);
 	file_text_close(file);

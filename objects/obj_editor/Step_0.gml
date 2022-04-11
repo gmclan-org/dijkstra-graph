@@ -2,6 +2,11 @@
 
 	var _reset = false;
 	
+	if (keyboard_check_pressed(ord("R"))) {
+		with(obj_node) { display_distances = !display_distances; }
+		return;
+	}
+	
 	if (keyboard_check_pressed(ord("Q"))) {
 		mode = editor_mode.finding;
 		_reset = true;

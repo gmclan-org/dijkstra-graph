@@ -1,7 +1,7 @@
 
 
 	draw_set_color(c_white);
-	draw_text(5, 5, "Q - search route, W - add nodes, E - connect nodes");
+	draw_text(5, 5, "Q - search route, W - add nodes, E - connect nodes, R - display distances");
 	draw_line(5 + mode * 150, 25, 155 + mode * 150, 25);
 	draw_text(5, 30, route_result);
 

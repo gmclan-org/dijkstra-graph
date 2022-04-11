@@ -38,6 +38,7 @@ function graph() constructor {
 		var prev = ds_map_create();
 		var nodes = new priority_queue();
 		var path = [];
+		var path_len = 0;
 		var i;
 		
 		for (i = 0; i < array_length(keys); i++) {
@@ -100,7 +101,14 @@ function graph() constructor {
 		while(array_length(path)) {
 			array_push(reversed_path, array_pop(path));
 		}
-		return reversed_path;
+		for (var i = 1; i < array_length(reversed_path); i++) {
+			path_len += self.vertices[? reversed_path[i-1]].connections[? reversed_path[i]];
+		}
+		
+		return {
+			path: reversed_path,
+			distance: path_len,
+		};
 	}
 	
 	return self;

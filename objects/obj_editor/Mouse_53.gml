@@ -10,28 +10,23 @@
 		} else {
 			node2 = instance_nearest(mouse_x, mouse_y, obj_node);
 		
-			show_debug_message("searching...");
 			var _res = global.my_graph.find_way(node1.name, node2.name);
 		
-			show_debug_message(_res);
-		
 			route = [];
-			for (var i = 0; i < array_length(_res); i++) {
+			for (var i = 0; i < array_length(_res.path); i++) {
 				with(obj_node) {
-					if (name == _res[i]) {
+					if (name == _res.path[i]) {
 						array_push(other.route, id);
 					}
 				}
 			}
 			
+			route_result = " way from " + node1.name + " to " + node2.name;
 			if (array_length(route) > 1) {
-				route_result = "Found";
+				route_result = "Found" + route_result + ", distance is " + string(_res.distance);
 			} else {
-				route_result = "Can't find"
+				route_result = "Can't find" + route_result;
 			}
-			route_result += "  way from " + node1.name + " to " + node2.name;
-		
-			show_debug_message(route);
 		}
 	}
 	
