@@ -1,19 +1,18 @@
-/// @param {String} name
+/// @param {String} _id
 /// @returns {Struct.vertex}
 function vertex(_id) constructor {
 	id = _id;
 	connections = ds_map_create();
 	
-	/// @param {Struct.Vertex}
-	/// @param {Real}
+	/// @param {Struct.vertex} vertex
+	/// @param {Real} distance
 	static connect = function(vertex, distance) {
 		if (vertex.id != id) {
 			self.connections[? vertex.id] = distance;
 		}
 	}
 	
-	/// @param {Struct.Vertex}
-	/// @param {Real}
+	/// @param {String} vertex_id
 	static disconnect = function(vertex_id) {
 		if (self.connections[? vertex_id] != undefined) {
 			ds_map_delete(self.connections, vertex_id);

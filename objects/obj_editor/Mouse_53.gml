@@ -51,7 +51,7 @@
 			connect_points(global.my_graph, node2.name, node1.name);
 			
 			node1 = -1;
-			node2 = -2;
+			node2 = -1;
 		}
 		
 	}

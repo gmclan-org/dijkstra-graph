@@ -1,3 +1,4 @@
+/// @param {Struct.graph} gr
 /// @param {String} a
 /// @param {String} b
 function connect_points(gr, a, b){

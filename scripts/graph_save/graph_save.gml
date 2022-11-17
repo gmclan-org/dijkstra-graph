@@ -1,4 +1,4 @@
-/// @param {Struct.graph} graph
+/// @param {Struct.graph} gr
 function graph_save(gr) {
 	var _txt = "[graph]\n";
 	var _keys = ds_map_keys_to_array(gr.vertices);
