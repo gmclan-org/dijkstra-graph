@@ -65,15 +65,16 @@ function graph() constructor {
 		return true;
 	}
 	
-	/// @param {String} id
+	/// @param {String} _id
 	/// @returns {Struct.vertex}
-	static get_vertex = function(id) {
-		return self.vertices[? id];
+	static get_vertex = function(_id) {
+		return self.vertices[? _id];
 	}
 	
 	/// @param {String} _start
 	/// @param {String} _end
 	static find_way = function(_start, _end) {
+		// feather ignore GM2044
 		var keys = ds_map_keys_to_array(self.vertices);
 			array_sort(keys, true);
 		var dist = ds_map_create();
@@ -95,10 +96,16 @@ function graph() constructor {
 			prev[? keys[i]] = undefined;
 		}
 		
+		var _time = current_time;
+		
+		graph_debug("new search ...");
+		
 		var smallest = undefined; // get node letter
 		while (!ds_priority_empty(nodes)) {
 			smallest = ds_priority_find_min(nodes);
 			ds_priority_delete_min(nodes);
+			
+			graph_debug($"... traversing {smallest}");
 			
 			if (smallest == _end) {
 				path = [];
@@ -118,8 +125,8 @@ function graph() constructor {
 				continue;
 			}
 			
-			var _vertex_keys = ds_map_keys_to_array(self.vertices[? smallest].connections);
-			var neighbor, len;
+			var _vertex_keys = self.vertices[? smallest].keys;
+			var neighbor = undefined, len = infinity;
 			// iterate over all neighbor vertices for this vertice
 			for(var i = 0, n = array_length(_vertex_keys); i < n; i++) {
 				neighbor = _vertex_keys[i];
@@ -141,13 +148,16 @@ function graph() constructor {
 		ds_map_destroy(prev);
 		ds_priority_destroy(nodes);
 		
-		var reversed_path = [];
-		while(array_length(path)) {
-			array_push(reversed_path, array_pop(path));
-		}
+		var reversed_path = array_reverse(path);
+		//while(array_length(path)) {
+		//	array_push(reversed_path, array_pop(path));
+		//}
 		for (var i = 1, n = array_length(reversed_path); i < n; i++) {
 			path_len += self.vertices[? reversed_path[i-1]].connections[? reversed_path[i]];
 		}
+		
+		graph_debug(string("Searching took {0} ms.", string_format(current_time - _time, 5, 10)));
+		graph_debug($"Found way with distance {path_len} trough {reversed_path}.");
 		
 		return {
 			path: reversed_path,
@@ -158,5 +168,10 @@ function graph() constructor {
 	return self;
 }
 
-
+#macro OPTION_SHOW_GRAPH_DEBUG true
+function graph_debug(_t) {
+	if (OPTION_SHOW_GRAPH_DEBUG) {
+		show_debug_message(_t);
+	}
+}
 
