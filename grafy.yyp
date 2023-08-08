@@ -36,6 +36,7 @@
     {"id":{"name":"spr_node","path":"sprites/spr_node/spr_node.yy",},},
     {"id":{"name":"connect_points","path":"scripts/connect_points/connect_points.yy",},},
     {"id":{"name":"spr_line","path":"sprites/spr_line/spr_line.yy",},},
+    {"id":{"name":"search","path":"scripts/search/search.yy",},},
     {"id":{"name":"graph_save","path":"scripts/graph_save/graph_save.yy",},},
     {"id":{"name":"obj_editor","path":"objects/obj_editor/obj_editor.yy",},},
     {"id":{"name":"room_example","path":"rooms/room_example/room_example.yy",},},

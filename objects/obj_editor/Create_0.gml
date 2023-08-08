@@ -42,5 +42,6 @@
 		graph_save(global.my_graph);
 	}
 
+	test_search = new search(global.my_graph, "A", "R", 1);
 
 

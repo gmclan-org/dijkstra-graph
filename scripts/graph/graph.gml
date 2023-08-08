@@ -98,15 +98,14 @@ function graph() constructor {
 		var smallest = undefined; // get node letter
 		while (!ds_priority_empty(nodes)) {
 			smallest = ds_priority_find_min(nodes);
-			ds_priority_delete_min(nodes);
-			
-			graph_debug($"... traversing {smallest}");
-			
 			if (smallest == _end) {
 				break;
 				// ends
 			}
-		
+			
+			ds_priority_delete_min(nodes);
+			
+			graph_debug($"... traversing {smallest}");
 		
 			if (smallest == undefined or dist[? smallest] == infinity) {
 				continue;
@@ -117,6 +116,7 @@ function graph() constructor {
 			// iterate over all neighbor vertices for this vertice
 			for(var i = 0, n = array_length(_vertex_keys); i < n; i++) {
 				neighbor = _vertex_keys[i];
+				graph_debug($"... >> {neighbor}");
 				
 				len = dist[? smallest] + self.vertices[? smallest].connections[$ neighbor];
 				
@@ -139,8 +139,6 @@ function graph() constructor {
 			array_insert(path, 1, smallest);
 			smallest = prev[? smallest];
 		}
-				
-		
 		
 		for (var i = 1, n = array_length(path); i < n; i++) {
 			distance += self.vertices[? path[i-1]].connections[$ path[i]];
@@ -154,7 +152,6 @@ function graph() constructor {
 		ds_map_destroy(dist);
 		ds_map_destroy(prev);
 		ds_priority_destroy(nodes);
-		
 		
 		//return
 		return {
