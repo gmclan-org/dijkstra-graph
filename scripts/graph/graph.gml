@@ -8,7 +8,6 @@ function graph() constructor {
 	static destroy = function() {
 		var keys = ds_map_keys_to_array(self.vertices);
 		for(var i = 0; i < array_length(keys); i++) {
-			self.vertices[? keys[i] ].destroy();
 			delete self.vertices[? keys[i] ];
 		}
 		ds_map_destroy(self.vertices);
@@ -22,7 +21,6 @@ function graph() constructor {
 	/// @param {String} _vertex_id
 	static remove = function(_vertex_id) {
 		if (self.vertices[? _vertex_id] != undefined) {
-			self.vertices[? _vertex_id].destroy();
 			ds_map_delete(self.vertices, _vertex_id);
 		}
 	}
@@ -76,29 +74,26 @@ function graph() constructor {
 	static find_way = function(_start, _end) {
 		// feather ignore GM2044
 		var keys = ds_map_keys_to_array(self.vertices);
-			array_sort(keys, true);
+			//array_sort(keys, true);
 		var dist = ds_map_create();
 		var prev = ds_map_create();
 		var nodes = ds_priority_create();
-		var path = [];
-		var path_len = 0;
 		var i;
 		
 		for (var i = 0, n = array_length(keys); i < n; i++) {
 			if (keys[i] == _start) {
-				// it's me :)
+				// it's this node, so distance to it is 0 :)
 				dist[? keys[i]] = 0;
-				ds_priority_add(nodes, keys[i], 0);
 			} else {
 				dist[? keys[i]] = infinity;
-				ds_priority_add(nodes, keys[i], infinity);
 			}
+			ds_priority_add(nodes, keys[i], dist[? keys[i]]);
 			prev[? keys[i]] = undefined;
 		}
 		
 		var _time = current_time;
 		
-		graph_debug("new search ...");
+		graph_debug($"new search from {_start} to {_end}...");
 		
 		var smallest = undefined; // get node letter
 		while (!ds_priority_empty(nodes)) {
@@ -108,14 +103,6 @@ function graph() constructor {
 			graph_debug($"... traversing {smallest}");
 			
 			if (smallest == _end) {
-				path = [];
-				
-				while(prev[? smallest] != undefined) {
-					array_push(path, smallest);
-					smallest = prev[? smallest];
-				}
-				
-				array_push(path, _start);
 				break;
 				// ends
 			}
@@ -131,7 +118,7 @@ function graph() constructor {
 			for(var i = 0, n = array_length(_vertex_keys); i < n; i++) {
 				neighbor = _vertex_keys[i];
 				
-				len = dist[? smallest] + self.vertices[? smallest].connections[? neighbor];
+				len = dist[? smallest] + self.vertices[? smallest].connections[$ neighbor];
 				
 				if(len < dist[? neighbor]) {
 					dist[? neighbor] = len;
@@ -143,25 +130,36 @@ function graph() constructor {
 		
 		}
 		
+		// now prepare results
+		var path = [];
+		var distance = 0;
+		path = [_start];
+				
+		while(prev[? smallest] != undefined) {
+			array_insert(path, 1, smallest);
+			smallest = prev[? smallest];
+		}
+				
+		
+		
+		for (var i = 1, n = array_length(path); i < n; i++) {
+			distance += self.vertices[? path[i-1]].connections[$ path[i]];
+		}
+		
+		graph_debug(string("Searching took {0} ms.", string_format(current_time - _time, 5, 10)));
+		graph_debug($"Found way with distance {distance} trough {path}.");
+		
+		// cleanup
 		// don't forget about cleanup
 		ds_map_destroy(dist);
 		ds_map_destroy(prev);
 		ds_priority_destroy(nodes);
 		
-		var reversed_path = array_reverse(path);
-		//while(array_length(path)) {
-		//	array_push(reversed_path, array_pop(path));
-		//}
-		for (var i = 1, n = array_length(reversed_path); i < n; i++) {
-			path_len += self.vertices[? reversed_path[i-1]].connections[? reversed_path[i]];
-		}
 		
-		graph_debug(string("Searching took {0} ms.", string_format(current_time - _time, 5, 10)));
-		graph_debug($"Found way with distance {path_len} trough {reversed_path}.");
-		
+		//return
 		return {
-			path: reversed_path,
-			distance: path_len,
+			path,
+			distance,
 		};
 	}
 	

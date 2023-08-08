@@ -2,33 +2,29 @@
 /// @returns {Struct.vertex}
 function vertex(_id) constructor {
 	id = _id;
-	connections = ds_map_create();
-	keys = [];
+	connections = {};
+	keys = array_create(0, "");
 	
-	/// @param {Struct.vertex} vertex
-	/// @param {Real} distance
-	static connect = function(vertex, distance) {
-		if (vertex.id != id) {
-			self.connections[? vertex.id] = distance;
+	/// @param {Struct.vertex} _vertex
+	/// @param {Real} _distance
+	static connect = function(_vertex, _distance) {
+		if (_vertex.id != id) {
+			self.connections[$ _vertex.id] = _distance;
 			self._refreshKeys();
 		}
 	}
 	
-	/// @param {String} vertex_id
-	static disconnect = function(vertex_id) {
-		if (self.connections[? vertex_id] != undefined) {
-			ds_map_delete(self.connections, vertex_id);
+	/// @param {String} _key
+	static disconnect = function(_key) {
+		if (self.connections[$ _key] != undefined) {
+			struct_remove(self.connections, _key);
 			self._refreshKeys();
 		}
 	}
 	
-	/// Call this before calling delete or losing reference
-	static destroy = function() {
-		ds_map_destroy(self.connections);
-	}
-	
+	/// refreshes cache array with keys
 	static _refreshKeys = function() {
-		keys = ds_map_keys_to_array(connections);
+		self.keys = struct_get_names(self.connections);
 	}
 	
 	return self;

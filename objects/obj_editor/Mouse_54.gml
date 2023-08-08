@@ -2,10 +2,10 @@
 
 	if (mode == editor_mode.node_creating) {
 		var near = instance_nearest(mouse_x, mouse_y, obj_node);
-		if (near and point_distance(mouse_x, mouse_y, near.x, near.y) < 50) {
+		if (near and point_distance(mouse_x, mouse_y, near.x, near.y) < OPTION_EDITOR_SAFE_DISTANCE) {
 			
 			if (near.v != undefined) {
-				var _keys = ds_map_keys_to_array(near.v.connections);
+				var _keys = near.v.keys;
 				for(var i = 0; i < array_length(_keys); i++) {
 					global.my_graph.disconnect(near.name, _keys[i]);
 				}
@@ -16,9 +16,9 @@
 			instance_destroy(near);
 		}
 	} else if (mode == editor_mode.connecting) {
-		if (node1 > -1) {
+		if (node1 != noone) {
 			node2 = instance_nearest(mouse_x, mouse_y, obj_node);
-			if (point_distance(mouse_x, mouse_y, node2.x, node2.y) < 50) {
+			if (point_distance(mouse_x, mouse_y, node2.x, node2.y) < OPTION_EDITOR_SAFE_DISTANCE) {
 				global.my_graph.disconnect(node1.name, node2.name);
 			}
 		} else {
@@ -27,7 +27,7 @@
 		}
 	}
 	
-	node1 = -1;
-	node2 = -1;
+	node1 = noone;
+	node2 = noone;
 
 

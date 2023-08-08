@@ -13,11 +13,11 @@
 			draw_sprite_ext(spr_line, 0, route[i-1].x, route[i-1].y, _len, 1, _dir, c_red, 1);
 		}
 	
-		if (node1 != -1) {
+		if (node1 != noone) {
 			draw_circle(node1.x, node1.y, 20, true);
 		}
 	
-		if (node2 != -1) {
+		if (node2 != noone) {
 			draw_circle(node2.x, node2.y, 20, true);
 		}
 	
@@ -25,9 +25,18 @@
 	}
 	
 	if (mode == editor_mode.node_creating) {
-		if (node1 > -1) {
+		if (node1 != noone) {
+			// dragging
 			draw_set_color(c_green);
 			draw_circle(node1.x, node1.y, 20, true);
+			
+			with(obj_node) {
+				if (id != other.node1) {
+					draw_set_alpha(0.3);
+					draw_set_color(c_red);
+					draw_circle(x, y, OPTION_EDITOR_SAFE_DISTANCE, false);
+				}
+			}
 		}
 	}
 	

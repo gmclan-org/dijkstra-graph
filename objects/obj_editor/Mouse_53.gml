@@ -1,18 +1,36 @@
 
 
 	if (mode == editor_mode.finding) {
-		if (node1 != -1 and node2 != -1) {
-			node1 = -1;
-			node2 = -1;
+		if (node1 != noone and node2 != noone) {
+			node1 = noone;
+			node2 = noone;
 			route = [];
-		} else if (node1 == -1) {
-			node1 = instance_nearest(mouse_x, mouse_y, obj_node);
+			route_result = "Select start point...";
+		}
+		
+		if (node1 == noone) {
+			var n = instance_nearest(mouse_x, mouse_y, obj_node);
+			if point_distance(mouse_x, mouse_y, n.x, n.y) <= OPTION_EDITOR_SAFE_DISTANCE {
+				node1 = n;
+				route_result = "Select end point...";
+			}
 		} else {
-			node2 = instance_nearest(mouse_x, mouse_y, obj_node);
+			var n = instance_nearest(mouse_x, mouse_y, obj_node);
+			if point_distance(mouse_x, mouse_y, n.x, n.y) > OPTION_EDITOR_SAFE_DISTANCE {
+				exit;
+			}
+			
+			node2 = n;
+			route = [];
+			
+			if (node2 == node1) {
+				route = [id];
+				route_result = $"Both start and end node are \"{node2.name}\", no search will be performed.";
+				exit;
+			}
 		
 			var _res = global.my_graph.find_way(node1.name, node2.name);
 		
-			route = [];
 			for (var i = 0; i < array_length(_res.path); i++) {
 				with(obj_node) {
 					if (name == _res.path[i]) {
@@ -34,7 +52,7 @@
 	if (mode == editor_mode.node_creating) {
 		var near = instance_nearest(mouse_x, mouse_y, obj_node);
 		
-		if (near <= 0 or point_distance(mouse_x, mouse_y, near.x, near.y) > 50) {
+		if (near == noone or point_distance(mouse_x, mouse_y, near.x, near.y) > OPTION_EDITOR_SAFE_DISTANCE) {
 			create_named_node(global.my_graph, mouse_x, mouse_y);
 		} else {
 			node1 = near;
@@ -42,16 +60,15 @@
 	}
 	
 	if (mode == editor_mode.connecting) {
-		if (node1 == -1) {
+		if (node1 == noone) {
 			node1 = instance_nearest(mouse_x, mouse_y, obj_node);
 		} else {
 			node2 = instance_nearest(mouse_x, mouse_y, obj_node);
 			
 			connect_points(global.my_graph, node1.name, node2.name);
-			connect_points(global.my_graph, node2.name, node1.name);
 			
-			node1 = -1;
-			node2 = -1;
+			node1 = noone;
+			node2 = noone;
 		}
 		
 	}

@@ -21,8 +21,8 @@
 	}
 	
 	if (_reset) {
-		node1 = -1;
-		node2 = -1;
+		node1 = noone;
+		node2 = noone;
 		route = [];
 		switch(mode) {
 			case editor_mode.node_creating:
@@ -40,14 +40,14 @@
 	}
 	
 	if (mode == editor_mode.node_creating) {
-		if (node1 > -1) {
+		if (node1 != noone) {
 			
 			var _n = node1;
 			var _close = false;
 			
 			with (obj_node) {
 				if (_n != id) {
-					if (point_distance(mouse_x, mouse_y, x, y) < 50) _close = true;
+					if (point_distance(mouse_x, mouse_y, x, y) < OPTION_EDITOR_SAFE_DISTANCE) _close = true;
 				}
 			}
 			

@@ -1,4 +1,5 @@
 
+	#macro OPTION_EDITOR_SAFE_DISTANCE 50
 
 	enum editor_mode {
 		finding, // find shortest way
@@ -8,11 +9,11 @@
 	
 	mode = editor_mode.finding;
 	
-	node1 = -1;
-	node2 = -1;
+	node1 = noone;
+	node2 = noone;
 	
 	route = [];
-	route_result = "";
+	route_result = "Select start point...";
 	
 	global.my_graph = graph_load();
 	
