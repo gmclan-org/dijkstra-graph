@@ -28,8 +28,10 @@
 				route_result = $"Both start and end node are \"{node2.name}\", no search will be performed.";
 				exit;
 			}
-		
-			var _res = global.my_graph.find_way(node1.name, node2.name);
+			
+			var _search = new search(global.my_graph, node1.name, node2.name);
+			_search.pass();
+			var _res = _search.result();
 		
 			for (var i = 0; i < array_length(_res.path); i++) {
 				with(obj_node) {

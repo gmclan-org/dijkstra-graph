@@ -24,8 +24,8 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 	found = false;
 	
 	keys = ds_map_keys_to_array(_graph.vertices);
-	dist = ds_map_create();
-	prev = ds_map_create();
+	dist = {};
+	prev = {};
 	nodes = ds_priority_create();
 	smallest = undefined;
 	where = _graph;
@@ -38,12 +38,12 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 	for (var i = 0, n = array_length(keys); i < n; i++) {
 		if (keys[i] == where_start) {
 			// it's this node, so distance to it is 0 :)
-			dist[? keys[i]] = 0;
+			dist[$ keys[i]] = 0;
 		} else {
-			dist[? keys[i]] = infinity;
+			dist[$ keys[i]] = infinity;
 		}
-		ds_priority_add(nodes, keys[i], dist[? keys[i]]);
-		prev[? keys[i]] = undefined;
+		ds_priority_add(nodes, keys[i], dist[$ keys[i]]);
+		prev[$ keys[i]] = undefined;
 	}
 	
 	nodes_visited_in_current_pass = 0;
@@ -51,6 +51,7 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 	
 	graph_debug($"new search from {where_start} to {where_end}...");
 	
+	/// @desc Searches
 	static pass = function() {
 		
 		if (found) return true;
@@ -67,9 +68,9 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 				distance = 0;
 				path = [where_start];
 				
-				while(prev[? smallest] != undefined) {
+				while(prev[$ smallest] != undefined) {
 					array_insert(path, 1, smallest);
-					smallest = prev[? smallest];
+					smallest = prev[$ smallest];
 				}
 		
 				for (var i = 1, n = array_length(path); i < n; i++) {
@@ -80,8 +81,6 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 		
 				// cleanup
 				// don't forget about cleanup
-				ds_map_destroy(dist);
-				ds_map_destroy(prev);
 				ds_priority_destroy(nodes);
 				
 				break;
@@ -92,25 +91,28 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 			
 			graph_debug($"... traversing {smallest}");
 		
-			if (smallest == undefined or dist[? smallest] == infinity) {
+			if (smallest == undefined or dist[$ smallest] == infinity) {
 				continue;
 			}
 			
 			var _vertex_keys = where.vertices[? smallest].keys;
 			var neighbor = undefined, len = infinity;
 			// iterate over all neighbor vertices for this vertice
+			graph_debug($"... >> checking distances to connected nodes: {_vertex_keys}");
 			for(var i = 0, n = array_length(_vertex_keys); i < n; i++) {
 				neighbor = _vertex_keys[i];
-				graph_debug($"... >> {neighbor}");
 				
-				len = dist[? smallest] + where.vertices[? smallest].connections[$ neighbor];
+				len = dist[$ smallest] + where.vertices[? smallest].connections[$ neighbor];
 				
-				if(len < dist[? neighbor]) {
-					dist[? neighbor] = len;
-					prev[? neighbor] = smallest;
+				if(len < dist[$ neighbor]) {
+					dist[$ neighbor] = len;
+					prev[$ neighbor] = smallest;
 
 					ds_priority_add(nodes, neighbor, len);
 		        }
+				
+				//graph_debug(json_encode(dist, 1));
+				//graph_debug(json_encode(prev, 1));
 			}
 			
 			nodes_visited_in_current_pass++;
@@ -122,6 +124,7 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 		return found;
 	}
 	
+	/// @desc Gives result (if exists)
 	static result = function() {
 		return {
 			found,
