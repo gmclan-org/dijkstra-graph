@@ -66,7 +66,7 @@ function sd_graph() constructor {
 	/// @param {String} _start
 	/// @param {String} _end
 	static find_way = function(_start, _end) {
-		var _serach = new graph_search(self, _start, _end);
+		var _serach = new sd_graph_search(self, _start, _end);
 		_serach.pass();
 		return _serach.result;
 	}
