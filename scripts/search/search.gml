@@ -23,7 +23,7 @@
 function search(_graph, _start, _end, _max_passes = infinity) constructor {
 	found = false;
 	
-	keys = ds_map_keys_to_array(_graph.vertices);
+	keys = struct_get_names(_graph.vertices);
 	dist = {};
 	prev = {};
 	nodes = ds_priority_create();
@@ -74,7 +74,7 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 				}
 		
 				for (var i = 1, n = array_length(path); i < n; i++) {
-					distance += where.vertices[? path[i-1]].connections[$ path[i]];
+					distance += where.vertices[$ path[i-1]].connections[$ path[i]];
 				}
 		
 				graph_debug($"Found way with distance {distance} trough {path}.");
@@ -95,14 +95,14 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 				continue;
 			}
 			
-			var _vertex_keys = where.vertices[? smallest].keys;
+			var _vertex_keys = where.vertices[$ smallest].keys;
 			var neighbor = undefined, len = infinity;
 			// iterate over all neighbor vertices for this vertice
 			graph_debug($"... >> checking distances to connected nodes: {_vertex_keys}");
 			for(var i = 0, n = array_length(_vertex_keys); i < n; i++) {
 				neighbor = _vertex_keys[i];
 				
-				len = dist[$ smallest] + where.vertices[? smallest].connections[$ neighbor];
+				len = dist[$ smallest] + where.vertices[$ smallest].connections[$ neighbor];
 				
 				if(len < dist[$ neighbor]) {
 					dist[$ neighbor] = len;

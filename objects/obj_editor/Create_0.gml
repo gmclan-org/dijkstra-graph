@@ -17,7 +17,7 @@
 	
 	global.my_graph = graph_load();
 	
-	if (ds_map_size(global.my_graph.vertices) == 0) {
+	if (array_length(struct_get_names(global.my_graph.vertices)) == 0) {
 		global.my_graph.destroy();
 		delete global.my_graph;
 		
