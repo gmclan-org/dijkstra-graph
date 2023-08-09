@@ -27,7 +27,7 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 	keys = struct_get_names(_graph.vertices);
 	dist = {};
 	prev = {};
-	nodes = ds_priority_create();
+	nodes = [];
 	smallest = undefined;
 	where = _graph;
 	where_start = _start;
@@ -43,7 +43,8 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 		} else {
 			dist[$ keys[i]] = infinity;
 		}
-		ds_priority_add(nodes, keys[i], dist[$ keys[i]]);
+		
+		self.priority_add(keys[i], dist[$ keys[i]]);
 		prev[$ keys[i]] = undefined;
 	}
 	
@@ -51,6 +52,46 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 	nodes_visit_limit = max(_max_passes, 1);
 	
 	graph_debug($"new search from {where_start} to {where_end}...");
+	
+	static priority_add = function(key, priority) {
+		var index = 0;
+		
+		for(var i = 0, n = array_length(nodes); i < n; i++) {
+			if (nodes[i].priority < priority) {
+				index = i;
+				break;
+			}
+		}
+		
+		array_insert(nodes, index, {key, priority});
+		
+		return index;
+	}
+	
+	static priority_min = function(_delete = false) {
+		var low = infinity;
+		var index = undefined;
+		for(var i = 0, n = array_length(nodes); i < n; i++) {
+			if (nodes[i].priority < low) {
+				low = nodes[i].priority;
+				index = i;
+			}
+		}
+		
+		var val = undefined;
+		if (index != undefined) {
+			val = nodes[index].key;
+			if (_delete) {
+				array_delete(nodes, index, 1);
+			}
+		}
+		
+		return val;
+	}
+	
+	static priority_delete_min = function() {
+		return self.priority_min(true);
+	}
 	
 	/// @desc Searches
 	static pass = function() {
@@ -60,8 +101,10 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 		nodes_visited_in_current_pass = 0;
 		
 		var _time = get_timer();
-		while (!ds_priority_empty(nodes)) {
-			smallest = ds_priority_find_min(nodes);
+		while (array_length(nodes)) {
+			
+			smallest = self.priority_min();
+			
 			if (smallest == where_end) {
 				finished = true;
 				
@@ -80,16 +123,12 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 				}
 		
 				graph_debug($"finished way with distance {distance} trough {path}.");
-		
-				// cleanup
-				// don't forget about cleanup
-				ds_priority_destroy(nodes);
 				
 				break;
 				// ends
 			}
 			
-			ds_priority_delete_min(nodes);
+			self.priority_delete_min();
 			
 			graph_debug($"... traversing {smallest}");
 		
@@ -110,7 +149,7 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 					dist[$ neighbor] = len;
 					prev[$ neighbor] = smallest;
 
-					ds_priority_add(nodes, neighbor, len);
+					self.priority_add(neighbor, len);
 		        }
 			}
 			
