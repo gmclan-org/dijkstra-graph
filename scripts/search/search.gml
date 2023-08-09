@@ -21,7 +21,8 @@
 /// @param {String} _end
 /// @param {Real} _max_passes
 function search(_graph, _start, _end, _max_passes = infinity) constructor {
-	found = false;
+	finished = false;
+	time_taken = 0;
 	
 	keys = struct_get_names(_graph.vertices);
 	dist = {};
@@ -54,14 +55,15 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 	/// @desc Searches
 	static pass = function() {
 		
-		if (found) return true;
+		if (finished) return true;
 		
 		nodes_visited_in_current_pass = 0;
 		
+		var _time = get_timer();
 		while (!ds_priority_empty(nodes)) {
 			smallest = ds_priority_find_min(nodes);
 			if (smallest == where_end) {
-				found = true;
+				finished = true;
 				
 				// now prepare results
 				path = [];
@@ -77,7 +79,7 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 					distance += where.vertices[$ path[i-1]].connections[$ path[i]];
 				}
 		
-				graph_debug($"Found way with distance {distance} trough {path}.");
+				graph_debug($"finished way with distance {distance} trough {path}.");
 		
 				// cleanup
 				// don't forget about cleanup
@@ -110,9 +112,6 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 
 					ds_priority_add(nodes, neighbor, len);
 		        }
-				
-				//graph_debug(json_encode(dist, 1));
-				//graph_debug(json_encode(prev, 1));
 			}
 			
 			nodes_visited_in_current_pass++;
@@ -120,14 +119,19 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 				break;
 			}
 		}
+		show_debug_message(_time);
+		time_taken += get_timer() - _time;
 		
-		return found;
+		return finished;
 	}
 	
 	/// @desc Gives result (if exists)
 	static result = function() {
+		// it uses short syntax for structs, where {a} == {a: a}
 		return {
-			found,
+			finished,
+			found: array_length(path) > 1,
+			time_taken: time_taken / 1000000,
 			path,
 			distance,
 		};

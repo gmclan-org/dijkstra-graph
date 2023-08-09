@@ -43,7 +43,7 @@
 			
 			route_result = " way from " + node1.name + " to " + node2.name;
 			if (array_length(route) > 1) {
-				route_result = "Found" + route_result + ", distance is " + string(_res.distance);
+				route_result = $"Found {route_result}, distance: {_res.distance}px, time: {string_format(_res.time_taken, 1, 7)}ms (1 frame = {game_get_speed(gamespeed_microseconds)/1000}ms, so it was {string_format(_res.time_taken/(game_get_speed(gamespeed_microseconds)/1000)*100, 1, 4)}%)";
 			} else {
 				route_result = "Can't find" + route_result;
 			}
