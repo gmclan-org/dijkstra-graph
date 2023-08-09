@@ -6,7 +6,7 @@
 	draw_text(x + 5, y + 5, name);
 	
 	if (v != undefined) {
-		var _k = v.keys;
+		var _k = v.keys();
 		for(var i = 0; i<array_length(_k); i++) {
 			with(obj_node) {
 				if (name == _k[i]) {

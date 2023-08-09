@@ -5,7 +5,7 @@
 		if (near and point_distance(mouse_x, mouse_y, near.x, near.y) < OPTION_EDITOR_SAFE_DISTANCE) {
 			
 			if (near.v != undefined) {
-				var _keys = near.v.keys;
+				var _keys = near.v.keys();
 				for(var i = 0; i < array_length(_keys); i++) {
 					global.my_graph.disconnect(near.name, _keys[i]);
 				}

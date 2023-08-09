@@ -136,7 +136,7 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 				continue;
 			}
 			
-			var _vertex_keys = where.vertices[$ smallest].keys;
+			var _vertex_keys = where.vertices[$ smallest].keys();
 			var neighbor = undefined, len = infinity;
 			// iterate over all neighbor vertices for this vertice
 			graph_debug($"... >> checking distances to connected nodes: {_vertex_keys}");

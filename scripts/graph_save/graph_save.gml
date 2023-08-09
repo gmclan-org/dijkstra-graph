@@ -8,7 +8,7 @@ function graph_save(gr) {
 	
 	for(var i = 0; i < array_length(_keys); i++) {	
 		_vertices_map[? _keys[i]] = ds_map_create();
-		var _vertices_map_keys = gr.vertices[$ _keys[i]].keys;
+		var _vertices_map_keys = gr.vertices[$ _keys[i]].keys();
 		for(var j = 0; j < array_length(_vertices_map_keys); j++) {
 			_vertices_map[? _keys[i]][? _vertices_map_keys[j]] = 1;
 		}

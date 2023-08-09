@@ -7,7 +7,7 @@ function graph() constructor {
 	
 	/// @param {Struct.vertex} _vertex
 	static add = function(_vertex) {
-		self.vertices[$ _vertex.id] = _vertex;
+		self.vertices[$ _vertex.name] = _vertex;
 	}
 	
 	/// @param {String} _vertex_id
@@ -46,8 +46,8 @@ function graph() constructor {
 		var _vb = self.get_vertex(b);
 	
 		if (_va and _vb) {
-			_va.disconnect(_vb.id);
-			_vb.disconnect(_va.id);
+			_va.disconnect(_vb.name);
+			_vb.disconnect(_va.name);
 		} else {
 			throw "one of vertices " + string(a) + "," + string(b) +" was not found";	
 		}
