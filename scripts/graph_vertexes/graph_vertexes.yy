@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "vertex",
+  "name": "graph_vertexes",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

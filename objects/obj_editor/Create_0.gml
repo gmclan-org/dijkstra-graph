@@ -18,10 +18,9 @@
 	global.my_graph = graph_load();
 	
 	if (array_length(struct_get_names(global.my_graph.vertices)) == 0) {
-		global.my_graph.destroy();
 		delete global.my_graph;
 		
-		global.my_graph = new graph();
+		global.my_graph = new sd_graph();
 		var g = global.my_graph;
 		create_named_node(g, 64, 192);
 		create_named_node(g, 320, 64);
@@ -41,7 +40,5 @@
 	
 		graph_save(global.my_graph);
 	}
-
-	test_search = new search(global.my_graph, "A", "R", 1);
 
 

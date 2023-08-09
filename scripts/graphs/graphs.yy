@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "search",
+  "name": "graphs",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

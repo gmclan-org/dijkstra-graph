@@ -25,7 +25,7 @@ function create_named_node(gr, x, y, give_name = "") {
 		}
 		
 		i.name = give_name;
-		i.v = new vertex(give_name);
+		i.v = new sd_graph_vertex(give_name);
 		gr.add(i.v);
 		return give_name;
 	}

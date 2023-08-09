@@ -7,12 +7,16 @@ It uses priority queques for searching rather than matrices, which would require
 
 Also contains an example of creating/updating/displaying graph, which isn't required to work.
 
+Check [Wiki](https://github.com/gmclan-org/dijkstra-graph/wiki) for more info.
+
 # Znajdywanie drogi w grafie z wagami używając alorytmu Dijsktry dla GameMaker
 
 Przykład znajdywania drogi w grafie z wagami używając alorytmu Dijsktry.
 Korzysta z kolejek priorytetowych zamiast z macierzy, co wymagałoby tablicy o rozmiarze NxN, gdzie N to licza wierzchołków.
 
 Zawiera te przykład dodawania/edytowania/wyświetlania grafu, który nie jest wymagany do działania.
+
+Dokumentacja znajduje się w  [Wiki](https://github.com/gmclan-org/dijkstra-graph/wiki).
 
 ---
 

@@ -1,5 +1,5 @@
 function graph_load() {
-	var g = new graph();
+	var g = new sd_graph();
 	
 	ini_open("graph.ini");
 		var _total_nodes = ini_read_real("graph", "total_nodes", 0);

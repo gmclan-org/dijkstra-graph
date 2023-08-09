@@ -1,11 +1,11 @@
 /*
 
 // example #1
-	test_search = new search(global.my_graph, "A", "C");
+	test_search = new graph_search(global.my_graph, "A", "C");
 	test_search.pass(); // will serach everything, as _max_passes = infinity
 
 // example #2
-	test_search = new search(global.my_graph, "A", "C", 1);
+	test_search = new graph_search(global.my_graph, "A", "C", 1);
 
 	// step event
 	var _s = test_search.pass();
@@ -16,11 +16,11 @@
 */
 
 
-/// @param {Struct.graph} _graph
+/// @param {Struct.sd_graph} _graph
 /// @param {String} _start
 /// @param {String} _end
 /// @param {Real} _max_passes
-function search(_graph, _start, _end, _max_passes = infinity) constructor {
+function graph_search(_graph, _start, _end, _max_passes = infinity) constructor {
 	finished = false;
 	time_taken = 0;
 	
@@ -158,7 +158,6 @@ function search(_graph, _start, _end, _max_passes = infinity) constructor {
 				break;
 			}
 		}
-		show_debug_message(_time);
 		time_taken += get_timer() - _time;
 		
 		return finished;

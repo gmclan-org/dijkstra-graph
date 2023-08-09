@@ -3,10 +3,10 @@
   "ResourceOrderSettings": [
     {"name":"graph_load","order":2,"path":"scripts/graph_load/graph_load.yy",},
     {"name":"objects_distance_by_name","order":4,"path":"scripts/objects_distance_by_name/objects_distance_by_name.yy",},
-    {"name":"vertex","order":1,"path":"scripts/vertex/vertex.yy",},
+    {"name":"graph_vertexes","order":1,"path":"scripts/graph_vertexes/graph_vertexes.yy",},
     {"name":"connect_points","order":3,"path":"scripts/connect_points/connect_points.yy",},
     {"name":"spr_line","order":1,"path":"sprites/spr_line/spr_line.yy",},
-    {"name":"search","order":2,"path":"scripts/search/search.yy",},
+    {"name":"graph_search","order":2,"path":"scripts/graph_search/graph_search.yy",},
     {"name":"graph_save","order":1,"path":"scripts/graph_save/graph_save.yy",},
     {"name":"obj_editor","order":2,"path":"objects/obj_editor/obj_editor.yy",},
   ],

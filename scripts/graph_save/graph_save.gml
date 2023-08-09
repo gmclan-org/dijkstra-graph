@@ -1,4 +1,4 @@
-/// @param {Struct.graph} gr
+/// @param {Struct.sd_graph} gr
 function graph_save(gr) {
 	var _txt = "[graph]\n";
 	var _keys = struct_get_names(gr.vertices);
